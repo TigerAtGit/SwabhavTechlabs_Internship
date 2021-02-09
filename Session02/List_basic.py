@@ -1,6 +1,6 @@
 import random as rd
 #EX 01
-list_r = [rd.randrange(5) for x in range(10)]
+list_r = [rd.randrange(10) for x in range(10)]
 print(list_r)
 
 #EX 02
