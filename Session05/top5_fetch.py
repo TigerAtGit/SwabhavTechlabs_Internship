@@ -7,13 +7,18 @@ except Exception as exc:
     print(exc)
 
 mycursor = con.cursor()
-mycursor.execute('SELECT * FROM COUNTRY LIMIT 5')
+mycursor.execute('''SELECT COUNTRYCODE, 
+                    CO.NAME, 
+                    SUM(INFO->'$.Population') 
+                    FROM CITY CT, COUNTRY CO 
+                    WHERE CT.COUNTRYCODE = CO.CODE 
+                    GROUP BY COUNTRYCODE 
+                    ORDER BY SUM(INFO->'$.Population') 
+                    DESC LIMIT 5''')
 res = mycursor.fetchall()
 for x in res:
     print(x)
 
 if con.is_connected:
     con.close
-print('Connection closed')
-
-print('Exit')
+print('Connection closed. Exit')
